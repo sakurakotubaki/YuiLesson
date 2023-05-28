@@ -11,15 +11,16 @@ final goRouterProvider = Provider((ref) {
     // GoRouteを使って、ルートを定義する
     GoRoute(
         path: '/', //　トップレベルのパスには、 / を指定する
-        name: StartPage.routeName, //
+        name: StartPage.routeName, // ルートの名前を指定する
         builder: (context, state) => const StartPage(),
         // ネストしたルートを定義する
         routes: [
           GoRoute(
-            path: 'second', // ネストしたルートのパスを指定する。 / は不要
+            path: 'second', // ネストしたルートのパスを指定する。 / は不要。トップレベルのパスとの重複は不可。新しいバージョンでは、つけたらエラーの原因になる
             name: SecondPage.routeName,
             builder: (context, state) => const SecondPage(),
           ),
+          // 上と同じようにネストしたルートを定義する
           GoRoute(
               path: 'get',
               name: PostGet.routeName,
