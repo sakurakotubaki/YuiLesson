@@ -1,8 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:yui_example/firebase_options.dart';
 import 'package:yui_example/presentation/go_router.dart';
 
-void main() {
+Future<void> main() async {
+  // WidgetsFlutterBindingは、Flutterアプリケーションとフレームワークの間の接続を提供する
+  WidgetsFlutterBinding.ensureInitialized();
+  // Firebaseの初期化
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -11,8 +19,10 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return MaterialApp.router(// MaterialApp.routerを使う
-      routerConfig: ref.watch(goRouterProvider),// goRouterProviderを読み込む
+    return MaterialApp.router(
+      // MaterialApp.routerを使う
+      debugShowCheckedModeBanner: false,
+      routerConfig: ref.watch(goRouterProvider), // goRouterProviderを読み込む
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
